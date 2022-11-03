@@ -58,7 +58,7 @@ public class TripUserService {
 
         String passwordEncode = encoder.encode(tripUserDto.password());
         TripUser tripUser = tripUserRepository.save(tripUserDto.toEntity(passwordEncode));
-      if(tripUserDto.loginType()=="" && tripUserDto.loginType().isBlank()) {
+      if(tripUserDto.loginType()==null) {
           EmailAuthDto emailAuthDto = EmailAuthDto.of(tripUserDto.email(), UUID.randomUUID().toString(), false, LocalDateTime.now());
           emailAuthRepository.save(emailAuthDto.toEntity());
           emailService.send(emailAuthDto.email(), emailAuthDto.authToken());
@@ -79,8 +79,6 @@ public class TripUserService {
     }
 
     public String snsLogin(String email,String loginType) {
-        log.info("email : {}",email);
-        log.info("email222 : {}",loginType);
         var tripUser = tripUserRepository.findByEmailAndDeletedAndLoginType(email,false,loginType).orElseThrow(() -> new BoardSiteException(ErrorCode.EMAIL_NOT_FOUND,String.format("%s not founded3333",email)));
 
         String token = JwtTokenUtils.generateToken(email,secretKey ,tripUser.getRole(),tripUser.getId(), tripUser.getTravelAgencyId(),expiredTimeMs);
