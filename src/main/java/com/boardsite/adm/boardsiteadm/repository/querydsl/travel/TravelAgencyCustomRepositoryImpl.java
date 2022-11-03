@@ -1,0 +1,32 @@
+package com.boardsite.adm.boardsiteadm.repository.querydsl.travel;
+
+import com.boardsite.adm.boardsiteadm.domain.travel.QTravelAgency;
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgency;
+import com.boardsite.adm.boardsiteadm.repository.querydsl.travel.template.MySQLJPATemplates;
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.jpa.impl.JPAQuery;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+public class TravelAgencyCustomRepositoryImpl extends QuerydslRepositorySupport implements TravelAgencyCustomRepository {
+    @PersistenceContext
+    EntityManager em;
+    public TravelAgencyCustomRepositoryImpl() {
+        super(TravelAgency.class);
+    }
+
+
+    @Override
+    public List<TravelAgency> findTravelAgencyRandomCount(int count) {
+        JPAQuery<TravelAgency> query = new JPAQuery<>(em , MySQLJPATemplates.DEFAULT);
+        QTravelAgency travelAgency = QTravelAgency.travelAgency;
+        return query.from(travelAgency)
+                .where(travelAgency.deleted.eq(false))
+                .groupBy(travelAgency.id)
+                .orderBy(NumberExpression.random().asc())
+                .limit(count)
+                .fetch();
+    }
+}

@@ -1,0 +1,151 @@
+package com.boardsite.adm.boardsiteadm.dto.adm.travel;
+
+
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgency;
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyList;
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyReservation;
+import com.boardsite.adm.boardsiteadm.domain.user.TripUser;
+import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyDto;
+import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyListDto;
+import com.boardsite.adm.boardsiteadm.dto.user.AdmTripUserDto;
+
+import java.time.LocalDateTime;
+
+public record AdmTravelAgencyReservationDto(
+        Long id ,
+        Long travelAgencyId,
+        Long travelAgencyListId,
+        AdmTripUserDto admTripUser,
+        String merchantUid,
+        String impUid,
+        String payEmail,
+        String payName,
+        int paid,
+        int realPaid,
+        int personCount,
+        int salePercent,
+        boolean deleted,
+        Long qrCodeId,
+        boolean qrChk ,
+        TravelAgencyDto travelAgencyDto,
+        TravelAgencyListDto travelAgencyListDto,
+        LocalDateTime createdAt
+) {
+
+    public static AdmTravelAgencyReservationDto of(Long id,
+                                                   Long travelAgencyId,
+                                                   Long travelAgencyListId,
+                                                   AdmTripUserDto admTripUser,
+                                                   String merchantUid,
+                                                   String impUid,
+                                                   String payEmail,
+                                                   String payName,
+                                                   int paid,
+                                                   int realPaid,
+                                                   int personCount,
+                                                   int salePercent,
+                                                   boolean deleted,
+                                                   Long qrCodeId,
+                                                   boolean qrChk,
+                                                   TravelAgencyDto travelAgencyDto,
+                                                   TravelAgencyListDto travelAgencyListDto,
+                                                   LocalDateTime createdAt) {
+        return new AdmTravelAgencyReservationDto(id,
+                travelAgencyId,
+                travelAgencyListId,
+                admTripUser,
+                merchantUid,
+                impUid,
+                payEmail,
+                payName,
+                paid,
+                realPaid,
+                personCount,
+                salePercent,
+                deleted,
+                qrCodeId,
+                qrChk,
+                travelAgencyDto,
+                travelAgencyListDto,
+                createdAt
+        );
+    }
+
+    public static AdmTravelAgencyReservationDto of(Long travelAgencyId,
+                                                   Long travelAgencyListId,
+                                                   AdmTripUserDto admTripUser,
+                                                   String merchantUid,
+                                                   String impUid,
+                                                   String payEmail,
+                                                   String payName,
+                                                   int paid,
+                                                   int personCount,
+                                                   Long qrCodeId,
+                                                   TravelAgencyDto travelAgencyDto,
+                                                   TravelAgencyListDto travelAgencyListDto)
+    {
+        return new AdmTravelAgencyReservationDto(null,
+                travelAgencyId,
+                travelAgencyListId,
+                admTripUser,
+                merchantUid,
+                impUid,
+                payEmail,
+                payName,
+                paid,
+                0,
+                personCount,
+                0,
+                false,
+                null,
+                false,
+                travelAgencyDto,
+                travelAgencyListDto,
+                null
+        );
+    }
+
+
+
+    public static AdmTravelAgencyReservationDto from(TravelAgencyReservation entity) {
+        return new AdmTravelAgencyReservationDto(
+                entity.getId(),
+                entity.getTravelAgency().getId(),
+                entity.getTravelAgencyList().getId(),
+                AdmTripUserDto.from(entity.getTripUser()),
+                entity.getMerchantUid(),
+                entity.getImpUid(),
+                entity.getPayEmail(),
+                entity.getPayName(),
+                entity.getPaid(),
+                entity.getRealPaid(),
+                entity.getPersonCount(),
+                entity.getSalePercent(),
+                entity.isDeleted(),
+                entity.getQrCodeId(),
+                entity.isQrChk(),
+                TravelAgencyDto.from(entity.getTravelAgency()),
+                TravelAgencyListDto.from(entity.getTravelAgencyList()),
+                entity.getCreatedAt()
+        );
+    }
+
+    public  TravelAgencyReservation toEntity(TravelAgency travelAgency, TravelAgencyList travelAgencyList , TripUser tripUser) {
+        return TravelAgencyReservation.of(
+                merchantUid,
+                impUid,
+                payEmail,
+                payName,
+                paid,
+                travelAgencyList.getSalePaid() * personCount,
+                personCount,
+                travelAgencyList.getSalePercent(),
+                deleted,
+                qrCodeId,
+                qrChk,
+                tripUser,
+                travelAgency,
+                travelAgencyList
+        );
+    }
+}

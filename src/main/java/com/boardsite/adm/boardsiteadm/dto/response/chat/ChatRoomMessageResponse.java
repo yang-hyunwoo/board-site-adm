@@ -1,0 +1,61 @@
+package com.boardsite.adm.boardsiteadm.dto.response.chat;
+
+
+
+import com.boardsite.adm.boardsiteadm.dto.chat.ChatRoomMessageDto;
+import com.boardsite.adm.boardsiteadm.dto.security.TripUserPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+public record ChatRoomMessageResponse(
+        Long id,
+        LocalDateTime createdAt,
+        String content,
+        Long chatRoomId,
+        boolean idChk,
+        String nickName,
+        Long profileId
+) {
+    public static ChatRoomMessageResponse of(Long id,
+                                             LocalDateTime createdAt,
+                                             String content,
+                                             Long chatRoomId,
+                                             boolean idChk,
+                                             String nickName,
+                                             Long profileId) {
+        return new ChatRoomMessageResponse(
+                id,
+                createdAt,
+                content,
+                chatRoomId,
+                idChk,
+                nickName,
+                profileId);
+    }
+
+    public static ChatRoomMessageResponse from(ChatRoomMessageDto dto){
+        Long authChkLong = 0L;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            var articleAuthChk = Optional.ofNullable(SecurityContextHolder.getContext())
+                    .map(SecurityContext::getAuthentication)
+                    .map(Authentication::getPrincipal)
+                    .map(TripUserPrincipal.class::cast);
+            authChkLong = articleAuthChk.get().id();
+        }
+        return new ChatRoomMessageResponse(
+                dto.id(),
+                dto.createdAt(),
+                dto.content(),
+                dto.chatRoomId(),
+                dto.tripUser().id() == authChkLong ? true : false,
+                dto.tripUser().nickName(),
+                dto.tripUser().profileId()
+        );
+    }
+
+}

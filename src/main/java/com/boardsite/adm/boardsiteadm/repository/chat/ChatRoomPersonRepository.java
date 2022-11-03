@@ -1,0 +1,16 @@
+package com.boardsite.adm.boardsiteadm.repository.chat;
+
+
+import com.boardsite.adm.boardsiteadm.domain.chat.ChatRoomPerson;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ChatRoomPersonRepository extends JpaRepository<ChatRoomPerson, Long> {
+
+    Optional<ChatRoomPerson> findByChatRoomIdAndTripUser_Id(Long id, Long userId);
+
+    List<ChatRoomPerson> findByChatRoom_IdOrderByCreatedBy(Long roomId);
+
+}
