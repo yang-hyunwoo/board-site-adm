@@ -8,10 +8,14 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/boardsite
-    username: postgres
-    password: dkahffk11
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-3-213-66-35.compute-1.amazonaws.com:5432/d2uku28in0vnr7
+    username: txwxckyioaetcl
+    password: c4cf86f02a9886d487b8c59bda5051dea8ae4370d1f3177318241ca211ba975f
+    platform: postgres
+#    url: jdbc:postgresql://localhost:5432/boardsite
+#    username: postgres
+#    password: dkahffk11
+#    driver-class-name: org.postgresql.Driver
   mail:
     host: smtp.gmail.com
     port: 587
