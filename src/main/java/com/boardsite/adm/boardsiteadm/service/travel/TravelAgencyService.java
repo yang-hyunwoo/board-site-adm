@@ -2,6 +2,7 @@ package com.boardsite.adm.boardsiteadm.service.travel;
 
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgency;
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyList;
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyOnlyListDto;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyDto;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyWithTravelAgencyListDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;
@@ -54,9 +55,9 @@ public class TravelAgencyService {
     }
 
     @Transactional(readOnly = true)
-    public List<TravelAgencyDto> travelAgencyRandomThree() {
+    public List<TravelAgencyOnlyListDto> travelAgencyRandomThree() {
         int count = 3;
-        return travelAgencyRepository.findTravelAgencyRandomCount(count).stream().map(TravelAgencyDto::from).collect(Collectors.toList());
-    }
 
+        return travelAgencyRepository.findTravelAgencyRandomCount(count);
+    }
 }

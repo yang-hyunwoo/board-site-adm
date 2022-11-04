@@ -10,17 +10,19 @@ public record TravelAgencyResponse(
         String detail,
         String comment,
         Long fileId,
+        String filePath,
         String address,
         boolean deleted
 ) {
     public static TravelAgencyResponse of(Long id,
-                                String name,
-                                String tel,
-                                String detail,
-                                String comment,
-                                Long fileId,
-                                String address,
-                                boolean deleted) {
+                                          String name,
+                                          String tel,
+                                          String detail,
+                                          String comment,
+                                          Long fileId,
+                                          String filePath,
+                                          String address,
+                                          boolean deleted) {
         return new TravelAgencyResponse(
                 id,
                 name,
@@ -28,6 +30,7 @@ public record TravelAgencyResponse(
                 detail,
                 comment,
                 fileId,
+                filePath,
                 address,
                 deleted);
     }
@@ -40,9 +43,25 @@ public record TravelAgencyResponse(
                 dto.detail(),
                 dto.comment(),
                 dto.fileId(),
+                null,
                 dto.address(),
                 dto.deleted()
         );
     }
 
+    public static TravelAgencyResponse from(TravelAgencyOnlyListDto dto){
+        return new TravelAgencyResponse(
+                dto.getId(),
+                dto.getName(),
+                dto.getTel(),
+                dto.getDetail(),
+                dto.getComment(),
+                dto.getFileId(),
+                dto.getFilePath(),
+                dto.getAddress(),
+                dto.isDeleted()
+        );
+    }
+
 }
+

@@ -26,6 +26,7 @@ public record TravelAgencyListResponse(
         int person_count,
         int person_max_count,
         Long thumnbnailFileId,
+        String filePath,
         int like_count,
         boolean deleted,
         Integer sort,
@@ -33,25 +34,26 @@ public record TravelAgencyListResponse(
 ) {
 
     public static TravelAgencyListResponse of(Long id,
-                                    Long travel_agency_id,
-                                    String travelAgencyName,
-                                    String city,
-                                    String title,
-                                    String content,
-                                    int sale_percent,
-                                    int real_paid,
-                                    int sale_paid,
-                                    String travel_start_at,
-                                    String travel_end_at,
-                                    String travelRealTripAt,
-                                    int read_count,
-                                    int person_count,
-                                    int person_max_count,
-                                    Long thumnbnailFileId,
-                                    int like_count,
-                                    boolean deleted,
-                                    Integer sort,
-                                    AtomicBoolean auth) {
+                                              Long travel_agency_id,
+                                              String travelAgencyName,
+                                              String city,
+                                              String title,
+                                              String content,
+                                              int sale_percent,
+                                              int real_paid,
+                                              int sale_paid,
+                                              String travel_start_at,
+                                              String travel_end_at,
+                                              String travelRealTripAt,
+                                              int read_count,
+                                              int person_count,
+                                              int person_max_count,
+                                              Long thumnbnailFileId,
+                                              String filePath,
+                                              int like_count,
+                                              boolean deleted,
+                                              Integer sort,
+                                              AtomicBoolean auth) {
         return new TravelAgencyListResponse(
                 id,
                 travel_agency_id,
@@ -69,6 +71,7 @@ public record TravelAgencyListResponse(
                 person_count,
                 person_max_count,
                 thumnbnailFileId,
+                filePath,
                 like_count,
                 deleted,
                 sort,
@@ -90,7 +93,7 @@ public record TravelAgencyListResponse(
         dto.travelAgencyLike().stream().map(TravelAgencyLike::getTripUser).forEach(s-> {if (s.getId().equals(vaildAuth)) {
             chk.set(true);
             return ;
-            }
+        }
         });
         return new TravelAgencyListResponse(
                 dto.id(),
@@ -109,9 +112,39 @@ public record TravelAgencyListResponse(
                 dto.person_count(),
                 dto.person_max_count(),
                 dto.thumnbnailFileId(),
+                null,
                 dto.like_count(),
                 dto.deleted(),
                 dto.sort(),
+                chk
+        );
+
+    }
+
+
+    public static TravelAgencyListResponse from(TravelAgencyListOnlyListDto dto){
+        AtomicBoolean chk = new AtomicBoolean(false);
+        return new TravelAgencyListResponse(
+                dto.getId(),
+                dto.getTravel_agency_id(),
+                dto.getTravel_name(),
+                dto.getCity(),
+                dto.getTitle(),
+                dto.getContent(),
+                dto.getSale_percent(),
+                dto.getReal_paid(),
+                dto.getSale_paid(),
+                dto.getTravel_start_at(),
+                dto.getTravel_end_at(),
+                dto.getTravelRealTripAt(),
+                dto.getRead_count(),
+                dto.getPerson_count(),
+                dto.getPerson_max_count(),
+                dto.getThumnbnailFileId(),
+                dto.getFilePath(),
+                dto.getLike_count(),
+                dto.isDeleted(),
+                dto.getSort(),
                 chk
         );
 
