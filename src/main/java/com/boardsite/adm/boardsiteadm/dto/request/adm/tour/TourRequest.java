@@ -11,9 +11,9 @@ public record TourRequest(
         String city
 ) {
     public static TourRequest of(String title,
-                       String content,
-                       Long thumbnailId,
-                       String city) {
+                                 String content,
+                                 Long thumbnailId,
+                                 String city) {
         return new TourRequest(title,
                 content,
                 thumbnailId,

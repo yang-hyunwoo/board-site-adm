@@ -17,6 +17,7 @@ public record TourDto(
         boolean deleted,
         int readCount,
         Long thumbnailId,
+        String filePath,
         String city,
         LocalDateTime createdAt,
         String createdBy,
@@ -25,11 +26,11 @@ public record TourDto(
 )
 {
     public static TourDto of(
-                      TripUserDto tripUser,
-                      String title,
-                      String content,
-                      Long thumbnailId,
-                      String city) {
+            TripUserDto tripUser,
+            String title,
+            String content,
+            Long thumbnailId,
+            String city) {
         return new TourDto(null,
                 tripUser,
                 title,
@@ -37,6 +38,7 @@ public record TourDto(
                 false,
                 0,
                 thumbnailId,
+                null,
                 city,
                 null,
                 null,
@@ -51,23 +53,25 @@ public record TourDto(
                              boolean deleted,
                              int readCount,
                              Long thumbnailId,
+                             String filePath,
                              String city,
                              LocalDateTime createdAt,
                              String createdBy,
                              LocalDateTime modifiedAt,
                              String modifiedBy) {
-     return new TourDto(id,
-             tripUser,
-             title,
-             content,
-             deleted,
-             readCount,
-             thumbnailId,
-             city,
-             createdAt,
-             createdBy,
-             modifiedAt,
-             modifiedBy);
+        return new TourDto(id,
+                tripUser,
+                title,
+                content,
+                deleted,
+                readCount,
+                thumbnailId,
+                filePath,
+                city,
+                createdAt,
+                createdBy,
+                modifiedAt,
+                modifiedBy);
     }
 
     public static TourDto from(Tour entity){
@@ -79,6 +83,7 @@ public record TourDto(
                 entity.isDeleted(),
                 entity.getReadCount(),
                 entity.getThumbnailId(),
+                null,
                 entity.getCity(),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),

@@ -4,6 +4,7 @@ package com.boardsite.adm.boardsiteadm.service.tour;
 import com.boardsite.adm.boardsiteadm.domain.constant.SearchTourType;
 import com.boardsite.adm.boardsiteadm.domain.tour.Tour;
 import com.boardsite.adm.boardsiteadm.dto.tour.TourDto;
+import com.boardsite.adm.boardsiteadm.dto.tour.TourOnlyListDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;
 import com.boardsite.adm.boardsiteadm.exception.ErrorCode;
 import com.boardsite.adm.boardsiteadm.repository.tour.TourRepository;
@@ -27,19 +28,18 @@ public class TourService {
 
 //
 @Transactional(readOnly = true)
-public Page<TourDto> tourSearchList(SearchTourType searchType , String searchKeyWord , Pageable pageable) {
-
+public Page<TourOnlyListDto> tourSearchList(SearchTourType searchType , String searchKeyWord , Pageable pageable) {
     if (searchKeyWord == null || searchKeyWord.isBlank()) {
-        return tourRepository.findAllByDeleted(pageable,false).map(TourDto::from);
+        return tourRepository.findCustomAllByDeleted(false, pageable);
     }
     return switch (searchType) {
-        case TITLE -> tourRepository.findByTitleContainingAndDeleted(searchKeyWord, pageable,false).map(TourDto::from);
-        case CITY -> tourRepository.findByCityContainingAndDeleted(searchKeyWord, pageable , false).map(TourDto::from);
+        case TITLE -> tourRepository.findCustomByTitleContainingAndDeleted(searchKeyWord,false, pageable);
+        case CITY -> tourRepository.findCustomByCityContainingAndDeleted(searchKeyWord, false,pageable );
     };
 }
     //수정
     @Transactional
-    public TourDto tourDetail(Long tourId,String role) {
+    public TourDto tourDetail(Long tourId, String role) {
         Tour tourDetail;
 
         if(role==null) {

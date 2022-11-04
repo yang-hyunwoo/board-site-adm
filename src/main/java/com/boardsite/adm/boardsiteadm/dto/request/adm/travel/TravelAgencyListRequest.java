@@ -17,16 +17,16 @@ public record TravelAgencyListRequest(
         String travelRealTripAt
 ) {
     public static TravelAgencyListRequest of(Long travel_agency_id,
-                                   String city,
-                                   String content,
-                                   int person_max_count,
-                                   int real_paid,
-                                   int sale_paid,
-                                   int sale_percent,
-                                   Long thumnbnailFileId,
-                                   String title,
-                                   String travel_end_at,
-                                   String travelRealTripAt) {
+                                             String city,
+                                             String content,
+                                             int person_max_count,
+                                             int real_paid,
+                                             int sale_paid,
+                                             int sale_percent,
+                                             Long thumnbnailFileId,
+                                             String title,
+                                             String travel_end_at,
+                                             String travelRealTripAt) {
         return new TravelAgencyListRequest(
                 travel_agency_id,
                 city,

@@ -1,6 +1,7 @@
 package com.boardsite.adm.boardsiteadm.repository.adm.tour;
 
 import com.boardsite.adm.boardsiteadm.domain.tour.Tour;
+import com.boardsite.adm.boardsiteadm.repository.querydsl.adm.tour.AdmTourCustomRepository;
 import com.boardsite.adm.boardsiteadm.repository.querydsl.tour.TourCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public interface AdmTourRepository extends
         JpaRepository<Tour, Long>,
         QuerydslPredicateExecutor<Tour>,
-        TourCustomRepository
+        AdmTourCustomRepository
 {
 
     Page<Tour> findByTitleContaining(String title , Pageable pageable);

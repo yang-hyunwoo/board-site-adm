@@ -4,6 +4,7 @@ import com.boardsite.adm.boardsiteadm.domain.constant.SearchTourType;
 import com.boardsite.adm.boardsiteadm.domain.tour.Tour;
 import com.boardsite.adm.boardsiteadm.domain.user.TripUser;
 import com.boardsite.adm.boardsiteadm.dto.tour.TourDto;
+import com.boardsite.adm.boardsiteadm.dto.tour.TourOnlyListDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;
 import com.boardsite.adm.boardsiteadm.exception.ErrorCode;
 import com.boardsite.adm.boardsiteadm.repository.adm.tour.AdmTourRepository;
@@ -24,14 +25,14 @@ public class AdmTourService {
     private final TripUserRepository tripUserRepository;
 
     @Transactional(readOnly = true)
-    public Page<TourDto> tourList(SearchTourType searchType , String searchKeyWord , Pageable pageable) {
+    public Page<TourOnlyListDto> tourList(SearchTourType searchType , String searchKeyWord , Pageable pageable) {
 
         if (searchKeyWord == null || searchKeyWord.isBlank()) {
-            return admTourRepository.findAll(pageable).map(TourDto::from);
+            return admTourRepository.findCustomAll(pageable);
         }
         return switch (searchType) {
-            case TITLE -> admTourRepository.findByTitleContaining(searchKeyWord, pageable).map(TourDto::from);
-            case CITY -> admTourRepository.findByCityContaining(searchKeyWord, pageable).map(TourDto::from);
+            case TITLE -> admTourRepository.findCustomByTitleContaining(searchKeyWord, pageable);
+            case CITY -> admTourRepository.findCustomByCityContaining(searchKeyWord, pageable);
         };
     }
 

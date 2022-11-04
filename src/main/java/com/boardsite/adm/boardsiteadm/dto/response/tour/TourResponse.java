@@ -1,6 +1,7 @@
 package com.boardsite.adm.boardsiteadm.dto.response.tour;
 
 import com.boardsite.adm.boardsiteadm.dto.tour.TourDto;
+import com.boardsite.adm.boardsiteadm.dto.tour.TourOnlyListDto;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ public record TourResponse(
         int readCount,
         Long thumbnailId,
         String city,
-
+        String filePath,
         boolean deleted
 
 ) {
@@ -24,6 +25,7 @@ public record TourResponse(
                                   int readCount,
                                   Long thumbnailId,
                                   String city,
+                                  String filePath,
                                   boolean deleted) {
         return new TourResponse(id,
                 createdAt,
@@ -32,7 +34,25 @@ public record TourResponse(
                 readCount,
                 thumbnailId,
                 city,
+                filePath,
                 deleted);
+    }
+
+    /*
+      리스트 불러오기 위해 새로 생성
+     */
+    public static TourResponse from(TourOnlyListDto dto){
+        return new TourResponse(
+                dto.getId(),
+                dto.getCreatedAt(),
+                dto.getTitle(),
+                dto.getContent(),
+                dto.getReadCount(),
+                dto.getThumbnailId(),
+                dto.getCity(),
+                dto.getFilePath(),
+                dto.isDeleted()
+        );
     }
 
     public static TourResponse from(TourDto dto){
@@ -44,6 +64,7 @@ public record TourResponse(
                 dto.readCount(),
                 dto.thumbnailId(),
                 dto.city(),
+                dto.filePath(),
                 dto.deleted()
         );
     }
