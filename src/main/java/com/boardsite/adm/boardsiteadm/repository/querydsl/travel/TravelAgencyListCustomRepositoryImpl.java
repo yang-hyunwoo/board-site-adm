@@ -79,6 +79,57 @@ public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupp
                 .orderBy(travelAgencyList.sort.asc())
                 .fetch();
         return new PageImpl<>(travelAgencyListPage, pageable, travelAgencyListPage.size());
+    }
 
+    @Override
+    public PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted(boolean deleted, Pageable pageable) {
+        var travelAgencyListPage =  queryFactory.select(Projections.bean(TravelAgencyListOnlyListDto.class,
+                        travelAgencyList.id.as("id"),
+                        travelAgencyList.travelAgency.id.as("travel_agency_id"),
+                        travelAgencyList.travelAgency.name.as("travel_name"),
+                        travelAgencyList.city.as("city"),
+                        travelAgencyList.readCount.as("read_count"),
+                        travelAgencyList.content.as("content"),
+                        travelAgencyList.realPaid.as("real_paid"),
+                        travelAgencyList.salePaid.as("sale_paid"),
+                        travelAgencyList.salePercent.as("sale_percent"),
+                        attachFile.filePath.as("filePath"),
+                        travelAgencyList.sort.as("sort"),
+                        travelAgencyList.travelStartAt.as("travel_start_at"),
+                        travelAgencyList.travelEndAt.as("travel_end_at"),
+                        travelAgencyList.title.as("title")))
+                .from(travelAgencyList)
+                .leftJoin(attachFile)
+                .on(travelAgencyList.thumnbnailFileId.eq(attachFile.fileId))
+                .where(travelAgencyList.deleted.eq(false))
+                .orderBy(travelAgencyList.sort.asc())
+                .fetch();
+        return new PageImpl<>(travelAgencyListPage, pageable, travelAgencyListPage.size());
+    }
+
+    @Override
+    public PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName, boolean deleted, Pageable pageable) {
+        var travelAgencyListPage =  queryFactory.select(Projections.bean(TravelAgencyListOnlyListDto.class,
+                        travelAgencyList.id.as("id"),
+                        travelAgencyList.travelAgency.id.as("travel_agency_id"),
+                        travelAgencyList.travelAgency.name.as("travel_name"),
+                        travelAgencyList.city.as("city"),
+                        travelAgencyList.readCount.as("read_count"),
+                        travelAgencyList.content.as("content"),
+                        travelAgencyList.realPaid.as("real_paid"),
+                        travelAgencyList.salePaid.as("sale_paid"),
+                        travelAgencyList.salePercent.as("sale_percent"),
+                        attachFile.filePath.as("filePath"),
+                        travelAgencyList.sort.as("sort"),
+                        travelAgencyList.travelStartAt.as("travel_start_at"),
+                        travelAgencyList.travelEndAt.as("travel_end_at"),
+                        travelAgencyList.title.as("title")))
+                .from(travelAgencyList)
+                .leftJoin(attachFile)
+                .on(travelAgencyList.thumnbnailFileId.eq(attachFile.fileId))
+                .where(travelAgencyList.deleted.eq(false),travelAgencyList.title.contains(travelAgencyTitleName))
+                .orderBy(travelAgencyList.sort.asc())
+                .fetch();
+        return new PageImpl<>(travelAgencyListPage, pageable, travelAgencyListPage.size());
     }
 }

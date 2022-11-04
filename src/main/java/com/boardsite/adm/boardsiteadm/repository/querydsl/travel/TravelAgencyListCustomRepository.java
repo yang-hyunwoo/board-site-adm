@@ -13,4 +13,9 @@ public interface TravelAgencyListCustomRepository {
 
     PageImpl<TravelAgencyListOnlyListDto> findByCustomTravelAgency_IdAndDeleted(Long id, boolean deleted, Pageable pageable);
 
+    PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted( boolean deleted, Pageable pageable);
+
+    PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName , boolean deleted, Pageable pageable);
+
+
 }
