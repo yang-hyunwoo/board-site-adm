@@ -1,7 +1,6 @@
 package com.boardsite.adm.boardsiteadm.repository.querydsl.travel.adm.travel;
 
-import com.board.boardsite.dto.travel.TravelAgencyListOnlyListDto;
-import com.board.boardsite.dto.travel.TravelAgencyOnlyListDto;
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 

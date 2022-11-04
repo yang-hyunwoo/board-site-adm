@@ -1,12 +1,9 @@
 package com.boardsite.adm.boardsiteadm.repository.querydsl.travel.adm.travel;
 
-import com.board.boardsite.domain.common.QAttachFile;
-import com.board.boardsite.domain.travel.QTravelAgency;
-import com.board.boardsite.domain.travel.QTravelAgencyList;
-import com.board.boardsite.domain.travel.TravelAgency;
-import com.board.boardsite.domain.travel.TravelAgencyList;
-import com.board.boardsite.dto.travel.TravelAgencyListOnlyListDto;
-import com.board.boardsite.dto.travel.TravelAgencyOnlyListDto;
+import com.boardsite.adm.boardsiteadm.domain.common.QAttachFile;
+import com.boardsite.adm.boardsiteadm.domain.travel.QTravelAgencyList;
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyList;
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.PageImpl;

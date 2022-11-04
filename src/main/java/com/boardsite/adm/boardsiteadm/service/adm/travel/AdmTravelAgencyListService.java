@@ -6,6 +6,7 @@ import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgency;
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyList;
 import com.boardsite.adm.boardsiteadm.dto.adm.travel.AdmTravelAgencyReservationDto;
 import com.boardsite.adm.boardsiteadm.dto.request.adm.travel.QrcodeUserUpdateRequest;
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
 import com.boardsite.adm.boardsiteadm.dto.security.TripUserPrincipal;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyListDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;

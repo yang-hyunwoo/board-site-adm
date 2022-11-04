@@ -1,5 +1,6 @@
 package com.boardsite.adm.boardsiteadm.service.travel;
 
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyLikeOnlyDto;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyLikeDto;
 import com.boardsite.adm.boardsiteadm.repository.travel.TravelAgencyListLikeRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,9 @@ public class TravelAgencyListLikeService {
     private final TravelAgencyListLikeRepository travelAgencyListLikeRepository;
 
     @Transactional(readOnly = true)
-    public Page<TravelAgencyLikeDto> travelAgencyLikeList(Long id , Pageable pageable) {
-       var travelAgencyLikeDto =  travelAgencyListLikeRepository.findByTripUser_Id(id, pageable).map(TravelAgencyLikeDto::from);;
+    public Page<TravelAgencyLikeOnlyDto> travelAgencyLikeList(Long id , Pageable pageable) {
+        var travelAgencyLikeDto =  travelAgencyListLikeRepository.findByCustomTripUser_Id(id, pageable);
 
-       return travelAgencyLikeDto;
+        return travelAgencyLikeDto;
     }
 }
