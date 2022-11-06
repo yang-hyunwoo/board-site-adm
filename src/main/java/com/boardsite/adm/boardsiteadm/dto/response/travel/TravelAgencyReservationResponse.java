@@ -17,7 +17,9 @@ public record TravelAgencyReservationResponse(
         Long travelAgencyListId,
         Long thumbFileId,
         Long qrCodeId,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        String filePath,
+        String thumbPath
 ) {
     public static TravelAgencyReservationResponse of(Long id,
                                                      String imp_uid,
@@ -31,7 +33,9 @@ public record TravelAgencyReservationResponse(
                                                      Long travelAgencyListId,
                                                      Long thumbFileId,
                                                      Long qrCodeId,
-                                                     LocalDateTime createdAt)
+                                                     LocalDateTime createdAt,
+                                                     String filePath,
+                                                     String thumbPath)
     {
         return new TravelAgencyReservationResponse(id,
                 imp_uid,
@@ -45,7 +49,9 @@ public record TravelAgencyReservationResponse(
                 travelAgencyListId,
                 thumbFileId,
                 qrCodeId,
-                createdAt);
+                createdAt,
+                filePath,
+                thumbPath);
     }
 
     public static TravelAgencyReservationResponse from(TravelAgencyReservationDto dto) {
@@ -62,8 +68,29 @@ public record TravelAgencyReservationResponse(
                 dto.travelAgencyListDto().id(),
                 dto.travelAgencyListDto().thumnbnailFileId(),
                 dto.qrCodeId(),
-                dto.createdAt()
+                dto.createdAt(),
+                null,
+                null
         );
     }
+    public static TravelAgencyReservationResponse from(TravelAgencyReservationOnlyListDto dto){
+        return new TravelAgencyReservationResponse(
+                dto.getId(),
+                dto.getImpUid(),
+                dto.getMerchantUid(),
+                dto.getPaid(),
+                dto.getPersonCount(),
+                dto.isDeleted(),
+                dto.getTravelAgencyDto().getName(),
+                dto.getTravelAgencyListDto().getTitle(),
+                dto.getTravelAgencyDto().getId(),
+                dto.getTravelAgencyListDto().getId(),
+                dto.getTravelAgencyListDto().getThumnbnailFileId(),
+                dto.getQrCodeId(),
+                dto.getCreatedAt(),
+                dto.getFilePath(),
+                dto.getThumbPath()
+        );
 
+    }
 }

@@ -7,6 +7,7 @@ import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyReservation;
 import com.boardsite.adm.boardsiteadm.domain.user.TripUser;
 import com.boardsite.adm.boardsiteadm.dto.common.AttachFileDto;
 import com.boardsite.adm.boardsiteadm.dto.request.travel.TravelAgencyRerservationRefundRequest;
+import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyReservationOnlyListDto;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyReservationDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;
 import com.boardsite.adm.boardsiteadm.exception.ErrorCode;
@@ -106,8 +107,8 @@ public class TravelAgencyReservationService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TravelAgencyReservationDto> getReservationList(Long tripUserId , Pageable pageable) {
-        return travelAgencyReservationRepository.findByTripUser_Id(pageable,tripUserId).map(TravelAgencyReservationDto::from);
+    public Page<TravelAgencyReservationOnlyListDto> getReservationList(Long tripUserId , Pageable pageable) {
+        return travelAgencyReservationRepository.findCustomList(tripUserId,pageable);
     }
 
     @Transactional

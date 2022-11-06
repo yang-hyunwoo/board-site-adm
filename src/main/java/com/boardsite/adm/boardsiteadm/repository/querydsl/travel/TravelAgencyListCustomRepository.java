@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TravelAgencyListCustomRepository {
 
@@ -17,5 +18,6 @@ public interface TravelAgencyListCustomRepository {
 
     PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName , boolean deleted, Pageable pageable);
 
+    Optional<TravelAgencyListOnlyListDto> findCustomByDetail(Long ListId, boolean deleted);
 
 }
