@@ -38,7 +38,7 @@ public class TravelAgencyListOnlyListDto {
         TravelAgency travelAgency;
         int like_count;
         boolean deleted;
-        Set<TravelAgencyLike> travelAgencyLike;
+        boolean travelAgencyLike;
 
     public TravelAgencyListOnlyListDto(Long id,
                                        Long travel_agency_id,
@@ -65,7 +65,7 @@ public class TravelAgencyListOnlyListDto {
                                        TravelAgency travelAgency,
                                        int like_count,
                                        boolean deleted,
-                                       Set<TravelAgencyLike> travelAgencyLike) {
+                                       boolean travelAgencyLike) {
         this.id = id;
         this.travel_agency_id = travel_agency_id;
         this.travel_name = travel_name;

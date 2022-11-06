@@ -1,9 +1,12 @@
 package com.boardsite.adm.boardsiteadm.repository.querydsl.travel;
 
 import com.boardsite.adm.boardsiteadm.domain.common.QAttachFile;
+import com.boardsite.adm.boardsiteadm.domain.travel.QTravelAgencyLike;
 import com.boardsite.adm.boardsiteadm.domain.travel.QTravelAgencyList;
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgency;
+import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyLike;
 import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
+import com.boardsite.adm.boardsiteadm.dto.security.TripUserPrincipal;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.PageImpl;
@@ -12,8 +15,11 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.boardsite.adm.boardsiteadm.domain.travel.QTravelAgencyLike.travelAgencyLike;
 
 public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupport implements TravelAgencyListCustomRepository {
     @PersistenceContext
@@ -29,7 +35,7 @@ public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupp
     QTravelAgencyList travelAgencyList = QTravelAgencyList.travelAgencyList;
     QAttachFile attachFile = QAttachFile.attachFile;
 
-
+    QTravelAgencyLike travelAgencyLike = QTravelAgencyLike.travelAgencyLike;
     @Override
     public List<TravelAgencyListOnlyListDto> findByDeletedAndSortIsNotNullOrderBySort() {
         return queryFactory.select(Projections.bean(TravelAgencyListOnlyListDto.class,
@@ -83,7 +89,8 @@ public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupp
     }
 
     @Override
-    public PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted(boolean deleted, Pageable pageable) {
+    public PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted(boolean deleted,TripUserPrincipal tripUserPrincipal, Pageable pageable) {
+
         var travelAgencyListPage =  queryFactory.select(Projections.bean(TravelAgencyListOnlyListDto.class,
                         travelAgencyList.id.as("id"),
                         travelAgencyList.travelAgency.id.as("travel_agency_id"),
@@ -105,11 +112,28 @@ public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupp
                 .where(travelAgencyList.deleted.eq(false))
                 .orderBy(travelAgencyList.sort.asc())
                 .fetch();
+
+
+        if(!(tripUserPrincipal ==null)) {
+            List<TravelAgencyLike> se = new ArrayList<>();
+            var like = queryFactory.selectFrom(travelAgencyLike).where(travelAgencyLike.tripUser.id.eq(Long.valueOf(tripUserPrincipal.id()))).fetch();
+            se.addAll(like);
+
+            for (int i = 0; i < like.size(); i++) {
+                for (int j = 0; j < travelAgencyListPage.size(); j++) {
+                    if (travelAgencyListPage.get(j).getId().equals(se.get(i).getTravelAgencyList().getId())) {
+                        travelAgencyListPage.get(j).setTravelAgencyLike(true);
+                    }
+                }
+            }
+        }
+
         return new PageImpl<>(travelAgencyListPage, pageable, travelAgencyListPage.size());
     }
 
     @Override
-    public PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName, boolean deleted, Pageable pageable) {
+    public PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName, TripUserPrincipal tripUserPrincipal, boolean deleted, Pageable pageable) {
+
         var travelAgencyListPage =  queryFactory.select(Projections.bean(TravelAgencyListOnlyListDto.class,
                         travelAgencyList.id.as("id"),
                         travelAgencyList.travelAgency.id.as("travel_agency_id"),
@@ -128,9 +152,24 @@ public class TravelAgencyListCustomRepositoryImpl extends QuerydslRepositorySupp
                 .from(travelAgencyList)
                 .leftJoin(attachFile)
                 .on(travelAgencyList.thumnbnailFileId.eq(attachFile.fileId))
-                .where(travelAgencyList.deleted.eq(false),travelAgencyList.title.contains(travelAgencyTitleName))
+                .where(travelAgencyList.deleted.eq(false),
+                        travelAgencyList.title.contains(travelAgencyTitleName))
                 .orderBy(travelAgencyList.sort.asc())
                 .fetch();
+        if(!(tripUserPrincipal ==null)) {
+            List<TravelAgencyLike> se = new ArrayList<>();
+            var like = queryFactory.selectFrom(travelAgencyLike).where(travelAgencyLike.tripUser.id.eq(Long.valueOf(tripUserPrincipal.id()))).fetch();
+            se.addAll(like);
+
+            for (int i = 0; i < like.size(); i++) {
+                for (int j = 0; j < travelAgencyListPage.size(); j++) {
+                    if (travelAgencyListPage.get(j).getId().equals(se.get(i).getTravelAgencyList().getId())) {
+                        travelAgencyListPage.get(j).setTravelAgencyLike(true);
+                    }
+                }
+            }
+        }
+
         return new PageImpl<>(travelAgencyListPage, pageable, travelAgencyListPage.size());
     }
 

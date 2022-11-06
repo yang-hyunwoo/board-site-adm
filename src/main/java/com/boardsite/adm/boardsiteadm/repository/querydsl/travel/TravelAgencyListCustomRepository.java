@@ -2,6 +2,7 @@ package com.boardsite.adm.boardsiteadm.repository.querydsl.travel;
 
 
 import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
+import com.boardsite.adm.boardsiteadm.dto.security.TripUserPrincipal;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
@@ -14,9 +15,9 @@ public interface TravelAgencyListCustomRepository {
 
     PageImpl<TravelAgencyListOnlyListDto> findByCustomTravelAgency_IdAndDeleted(Long id, boolean deleted, Pageable pageable);
 
-    PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted( boolean deleted, Pageable pageable);
+    PageImpl<TravelAgencyListOnlyListDto> findCustomByAllDeleted(boolean deleted, TripUserPrincipal tripUserPrincipal, Pageable pageable);
 
-    PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName , boolean deleted, Pageable pageable);
+    PageImpl<TravelAgencyListOnlyListDto> findCustomByTitleContaingAndDeleted(String travelAgencyTitleName ,TripUserPrincipal tripUserPrincipal, boolean deleted, Pageable pageable);
 
     Optional<TravelAgencyListOnlyListDto> findCustomByDetail(Long ListId, boolean deleted);
 

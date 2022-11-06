@@ -3,6 +3,7 @@ package com.boardsite.adm.boardsiteadm.service.travel;
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyLike;
 import com.boardsite.adm.boardsiteadm.domain.travel.TravelAgencyList;
 import com.boardsite.adm.boardsiteadm.dto.response.travel.TravelAgencyListOnlyListDto;
+import com.boardsite.adm.boardsiteadm.dto.security.TripUserPrincipal;
 import com.boardsite.adm.boardsiteadm.dto.travel.TravelAgencyListDto;
 import com.boardsite.adm.boardsiteadm.exception.BoardSiteException;
 import com.boardsite.adm.boardsiteadm.exception.ErrorCode;
@@ -31,13 +32,12 @@ public class TravelAgencyListService {
     private final TripUserRepository tripUserRepository;
 
     @Transactional(readOnly = true)
-    public Page<TravelAgencyListOnlyListDto> travelAgencyTripList(String travelAgencyTitleName , Pageable pageable) {
-
+    public Page<TravelAgencyListOnlyListDto> travelAgencyTripList(String travelAgencyTitleName , TripUserPrincipal tripUserPrincipal, Pageable pageable) {
         if(travelAgencyTitleName == null || travelAgencyTitleName.isBlank()) {
-            return travelAgencyListRepository.findCustomByAllDeleted(false,pageable);
+            return travelAgencyListRepository.findCustomByAllDeleted(false,tripUserPrincipal,pageable);
         }
 
-        return travelAgencyListRepository.findCustomByTitleContaingAndDeleted(travelAgencyTitleName,false,pageable);
+        return travelAgencyListRepository.findCustomByTitleContaingAndDeleted(travelAgencyTitleName,tripUserPrincipal,false,pageable);
     }
 
     @Transactional(readOnly = true)
