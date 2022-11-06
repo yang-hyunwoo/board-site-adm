@@ -70,9 +70,9 @@ batch:
   initialize-schema: never
 
 cloudinary:
-  cloud_name: ${CLOUDINARY_NAME}
-  api_key: ${CLOUDINARY_KEY}
-  api_secret: ${CLOUDINARY_SECRET}
+  cloud_name: df1m1qh0o
+  api_key: 176668919675916
+  api_secret: 65speCbjat7h5uCf_HZ1_WwEpRM
 
 ---
 spring:
