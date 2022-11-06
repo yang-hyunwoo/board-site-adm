@@ -10,6 +10,7 @@ public record UserResponse(
         boolean deleted,
         Boolean emailAuth,
         String role,
+        String loginType,
         Long travelAgencyId,
         boolean authChk,
         Long profileId,
@@ -17,16 +18,17 @@ public record UserResponse(
 ) {
 
     public static UserResponse of(Long id,
-                        String email,
-                        String name,
-                        String nickName,
-                        String phoneNumber,
-                        boolean deleted,
-                        Boolean emailAuth,
-                        String role,
-                        Long travelAgencyId,
-                        boolean authChk,
-                        Long profileId,
+                                  String email,
+                                  String name,
+                                  String nickName,
+                                  String phoneNumber,
+                                  boolean deleted,
+                                  Boolean emailAuth,
+                                  String role,
+                                  String loginType,
+                                  Long travelAgencyId,
+                                  boolean authChk,
+                                  Long profileId,
                                   String travelAgencyName) {
         return new UserResponse(id,
                 email,
@@ -36,6 +38,7 @@ public record UserResponse(
                 deleted,
                 emailAuth,
                 role,
+                loginType,
                 travelAgencyId,
                 authChk,
                 profileId,
@@ -52,13 +55,11 @@ public record UserResponse(
                 dto.deleted,
                 dto.emailAuth,
                 dto.role,
+                dto.loginType,
                 dto.travelAgencyId,
                 dto.authChk,
                 dto.profileId,
                 dto.travelAgencyName
         );
     }
-
-
-
 }
