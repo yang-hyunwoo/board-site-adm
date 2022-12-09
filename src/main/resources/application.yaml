@@ -15,8 +15,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${GOOGLE_MAIL_ID}
-    password: ${GOOGLE_MAIL_PW}
+    username: cohouseol@gmail.com
+    password: skdxecuyxmkiabcb
     properties:
       mail:
         smtp:
@@ -43,7 +43,7 @@ spring:
     detection-strategy: annotated
   thymeleaf3.decoupled-logic: true
 server:
-  port: 8082
+  port: 8081
 servlet:
   multipart:
     maxFileSize: 800MB
@@ -56,16 +56,16 @@ custom:
     thumbnail-images: C:\Git_project\board-site\src\main\resources\templates\thumbnail
 
 import:
-  rest-api: ${IMPORT_KEY}
-  rest-api-secret: ${IMPORT_SECRET}
+  rest-api: 3071870338636273
+  rest-api-secret: 0nejijihcCxf0Fi7io0zia5NNtaw0tv7z15FUDhLJi8w0h85ieWdC2zgRyqK9KAS0T2yA0PHeABpwYOd
 naver:
-  client-id: ${NAVER_ID}
-  client-secret: ${NAVER_PW}
-  callback-url: https://board-site-production.up.railway.app/NaverLoginCallback
+  client-id: VI3PelSRuX5_E4NdPZHj
+  client-secret: CHD4HaNzd4
+  callback-url: http://localhost:8081/NaverLoginCallback
 kakao:
-  rest-api-key: ${KAKAO_ID}
-  callback-url: https://board-site-production.up.railway.app/NaverLoginCallback
-  admin-key: ${KAKAO_PW}
+  rest-api-key: fa8b9147c368820f00315b9e2b68eae5
+  callback-url: http://localhost:8081/KakaoLoginCallback
+  admin-key: cce05f289cb3058bb7a61d4d1fce24b2
 jwt:
   secret-key: board_site.trip_web_application.secret_key
   #30 days
@@ -74,8 +74,8 @@ batch:
   initialize-schema: never
 
 cloudinary:
-  cloud_name: ${CLOUDINARY_ID}
-  api_key: ${CLOUDINARY_KEY}
-  api_secret: ${CLOUDINARY_PW}
+  cloud_name: df1m1qh0o
+  api_key: 176668919675916
+  api_secret: 65speCbjat7h5uCf_HZ1_WwEpRM
 
----
+
