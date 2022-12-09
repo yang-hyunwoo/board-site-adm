@@ -40,7 +40,7 @@ public class AuthenticationConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception {
-        return http.csrf().disable()
+        return http.csrf().disable()        //csrf를 사용하지 않는다.
                 .authorizeRequests()
                 .antMatchers("/api/adm/excel/**","p/api/chat/detail","/**","/api/common/**","/api/trip/agency-trip/**","/api/trip/agency/**","/api/trip/articles/**","/api/trip/articles","/api/trip/users/confirm-email","/api/adm/admin/list").permitAll()
                 .antMatchers("/api/admin/**").hasRole("SUPER")
@@ -48,9 +48,9 @@ public class AuthenticationConfig {
                 .antMatchers("/api/**","/api/tirp/articles/new-article").authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)         //spirng에서 세션을 관리하지 않겠다.
                 .and()
-                .addFilterBefore(new JwtTokenFilter(key,tripUserService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenFilter(key,tripUserService), UsernamePasswordAuthenticationFilter.class) //
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and().build();
