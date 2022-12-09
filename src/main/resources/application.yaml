@@ -43,7 +43,7 @@ spring:
     detection-strategy: annotated
   thymeleaf3.decoupled-logic: true
 server:
-  port: 8081
+  port: 8082
 servlet:
   multipart:
     maxFileSize: 800MB
