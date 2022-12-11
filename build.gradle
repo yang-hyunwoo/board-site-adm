@@ -89,3 +89,7 @@ jar {
         attributes('Main-Class': 'com.boardsite.adm.boardsiteadm.BoardSiteAdmApplication')
     }
 }
+
+bootJar {
+    archiveFileName ='board-site-adm-v1.1.jar'
+}
