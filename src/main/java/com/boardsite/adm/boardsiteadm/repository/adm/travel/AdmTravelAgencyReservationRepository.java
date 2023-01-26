@@ -23,6 +23,6 @@ public interface AdmTravelAgencyReservationRepository extends JpaRepository<Trav
 
     Page<TravelAgencyReservation> findByTravelAgencyList_IdAndDeleted(Long travelAgencyListId , boolean deleted,Pageable pageable);
 
-    Page<TravelAgencyReservation> findByTripUser_IdAndTravelAgency_Id(Long userId ,Long travelAgencyId, Pageable pageable);
+    Page<TravelAgencyReservation> findByTripUser_Id(Long userId , Pageable pageable);
 
 }

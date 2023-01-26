@@ -47,7 +47,11 @@ public class AdmUserService {
 
     @Transactional(readOnly = true)
     public Page<AdmTravelAgencyReservationDto> userPayList(Long id, TripUserPrincipal tripUserPrincipal , Pageable pageable) {
-        return admTravelAgencyReservationRepository.findByTripUser_IdAndTravelAgency_Id(id, tripUserPrincipal.travelAgencyId(), pageable).map(AdmTravelAgencyReservationDto::from);
+        System.out.println("이그는:::"+tripUserPrincipal.travelAgencyId());
+        System.out.println("이그는2:::"+tripUserPrincipal);
+
+
+        return admTravelAgencyReservationRepository.findByTripUser_Id(id, pageable).map(AdmTravelAgencyReservationDto::from);
 
     }
 
