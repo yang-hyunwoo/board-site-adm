@@ -46,6 +46,7 @@ public class AdmTravelAgencyListController {
                                                                          @AuthenticationPrincipal TripUserPrincipal tripUserPrincipal,
                                                                          @PageableDefault(size=10)Pageable pageable){
 
+        System.out.println("aaAA::::"+startedAt);
         Page<TravelAgencyListResponse> travelAgencyListResponses = admTravelAgencyListService.travelAgencyTripList(inputSearch,dateSearch,startedAt,endAt,input ,tripUserPrincipal, pageable).map(TravelAgencyListResponse::from);
         return Response.success(travelAgencyListResponses);
     }

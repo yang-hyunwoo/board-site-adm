@@ -33,10 +33,9 @@ public class AdminController {
         return Response.success(new TripUserLoginResponse(token));
     }
 
-    /*
-       관리자 회원가입시 여행사 리스트 불러오기
-     */
+
     @GetMapping("/list")
+    @ApiOperation(value = "여행사 리스트", notes = "관리자 회원가입시 여행사 리스트를 불러온다.")
     public Response<List<TravelAgencyResponse>> travelAgencyList(){
         List<TravelAgencyResponse> travelAgencyResponses = adminService.travelAgencyList().stream().map(TravelAgencyResponse::from).collect(Collectors.toList());
         return Response.success(travelAgencyResponses);
